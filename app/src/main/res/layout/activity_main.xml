@@ -18,7 +18,7 @@
         android:id="@+id/txtId"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="Id"
         android:inputType="textPersonName"

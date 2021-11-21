@@ -12,6 +12,7 @@ public interface UsuariosApi {
     String Ruta0 = "/posts";
     String Ruta1 = "/posts/{valor}";
 
+
     @GET(Ruta0)
     Call<List<Usuarios>> getUsuarios();
 

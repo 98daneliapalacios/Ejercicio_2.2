@@ -6,6 +6,7 @@ public class Usuarios {
     public String title;
     public String body;
 
+
     public int getUserId() {
         return userId;
     }
