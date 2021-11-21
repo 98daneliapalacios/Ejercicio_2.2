@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 arrayAdapter.clear();
                 arrayAdapter.notifyDataSetChanged();
+
                 id = (EditText) findViewById(R.id.txtId);
                 obtenerListaPersona(Integer.parseInt(id.getText().toString()));
             }
