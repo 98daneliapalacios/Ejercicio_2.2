@@ -7,7 +7,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,18 +34,41 @@ public class MainActivity extends AppCompatActivity {
     ListView listapersonas;
     ArrayList<String> titulos = new ArrayList<>();
     ArrayAdapter arrayAdapter;
-    Integer id = 1;
+    EditText id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        obtenerListaPersona();
+        //obtenerListaPersonas();
+
+        Button btnBucar = findViewById(R.id.btnBuscarPorId);
+        Button btnMostrar = findViewById(R.id.btnMostrarTodo);
+
+        btnBucar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                arrayAdapter.clear();
+                arrayAdapter.notifyDataSetChanged();
+                id = (EditText) findViewById(R.id.txtId);
+                obtenerListaPersona(Integer.parseInt(id.getText().toString()));
+            }
+        });
+
+        btnMostrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                arrayAdapter.clear();
+                arrayAdapter.notifyDataSetChanged();
+                obtenerListaPersonas();
+            }
+        });
 
         arrayAdapter= new ArrayAdapter(this, android.R.layout.simple_list_item_1, titulos);
         listapersonas = (ListView) findViewById(R.id.listusers);
         listapersonas.setAdapter(arrayAdapter);
+
     }
 
     private void obtenerListaPersonas() {
@@ -81,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void obtenerListaPersona() {
+    private void obtenerListaPersona( Integer Id) {
         if(validarConexionRed()){
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("https://jsonplaceholder.typicode.com/")
@@ -90,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
             UsuariosApi usuariosApi = retrofit.create(UsuariosApi.class);
 
-            Call<Usuarios> callPersona = usuariosApi.getUsuario(id);
+            Call<Usuarios> callPersona = usuariosApi.getUsuario(Id);
 
             callPersona.enqueue(new Callback<Usuarios>() {
                 @Override
